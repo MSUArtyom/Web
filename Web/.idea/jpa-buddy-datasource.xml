@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="3ca4351b-bffc-45fb-bc63-878557dd1c26" name="WebApp" url="jdbc:postgresql://localhost/web" driverClass="org.postgresql.Driver" />
+      <data-source id="148de2a9-3ec2-4777-be93-d410ee59f900" name="web" url="jdbc:postgresql://localhost/web" driverClass="org.postgresql.Driver" />
+    </data-sources>
+  </component>
+</project>
