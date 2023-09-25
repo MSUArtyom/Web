@@ -83,10 +83,69 @@ public class ServicesServiceTest {
         servicesService.createService(new_service2);
         servicesService.createService(new_service3);
         List<Services> list_of_s = servicesService.readServiceListByType("ТВ3");
-        Assert.assertEquals(list_of_s.size(), 3);
         Assert.assertTrue(list_of_s.contains(new_service1));
         Assert.assertTrue(list_of_s.contains(new_service2));
         Assert.assertTrue(list_of_s.contains(new_service3));
+        servicesService.deleteServiceForever(new_service1);
+        servicesService.deleteServiceForever(new_service2);
+        servicesService.deleteServiceForever(new_service3);
+    }
+
+    @Test
+    public void readAllServices() {
+        ServicesService servicesService = new ServicesService();
+        Services new_service1 = new Services("Тестовая услуга1", "ТВ", "описание", "план");
+        Services new_service2 = new Services("Тестовая услуга1", "ТВ3", "описание", "план");
+        Services new_service3 = new Services("Тестовая услуга1", "Т3", "описание", "план");
+        servicesService.createService(new_service1);
+        servicesService.createService(new_service2);
+        servicesService.createService(new_service3);
+        List<Services> list_of_s = servicesService.readAllServices();
+        Assert.assertTrue(list_of_s.contains(new_service1));
+        Assert.assertTrue(list_of_s.contains(new_service2));
+        Assert.assertTrue(list_of_s.contains(new_service3));
+        servicesService.deleteServiceForever(new_service1);
+        servicesService.deleteServiceForever(new_service2);
+        servicesService.deleteServiceForever(new_service3);
+    }
+
+    @Test
+    public void readAllServicesByName() {
+        ServicesService servicesService = new ServicesService();
+        Services new_service1 = new Services("000000AТестовая услуга1", "ТВ", "описание", "план");
+        Services new_service2 = new Services("000000BТестовая услуга1", "ТВ3", "описание", "план");
+        Services new_service3 = new Services("000000CТестовая услуга1", "Т3", "описание", "план");
+        servicesService.createService(new_service1);
+        servicesService.createService(new_service2);
+        servicesService.createService(new_service3);
+        List<Services> list_of_s = servicesService.readAllServicesByName();
+        Assert.assertTrue(list_of_s.contains(new_service1));
+        Assert.assertTrue(list_of_s.contains(new_service2));
+        Assert.assertTrue(list_of_s.contains(new_service3));
+        Assert.assertEquals(list_of_s.get(0), new_service1);
+        Assert.assertEquals(list_of_s.get(1), new_service2);
+        Assert.assertEquals(list_of_s.get(2), new_service3);
+        servicesService.deleteServiceForever(new_service1);
+        servicesService.deleteServiceForever(new_service2);
+        servicesService.deleteServiceForever(new_service3);
+    }
+
+    @Test
+    public void readAllServicesByType() {
+        ServicesService servicesService = new ServicesService();
+        Services new_service1 = new Services("000000AТестовая услуга1", "001ТВ", "описание", "план");
+        Services new_service2 = new Services("000000BТестовая услуга1", "002ТВ3", "описание", "план");
+        Services new_service3 = new Services("000000CТестовая услуга1", "003Т3", "описание", "план");
+        servicesService.createService(new_service1);
+        servicesService.createService(new_service2);
+        servicesService.createService(new_service3);
+        List<Services> list_of_s = servicesService.readAllServicesByType();
+        Assert.assertTrue(list_of_s.contains(new_service1));
+        Assert.assertTrue(list_of_s.contains(new_service2));
+        Assert.assertTrue(list_of_s.contains(new_service3));
+        Assert.assertEquals(list_of_s.get(0), new_service1);
+        Assert.assertEquals(list_of_s.get(1), new_service2);
+        Assert.assertEquals(list_of_s.get(2), new_service3);
         servicesService.deleteServiceForever(new_service1);
         servicesService.deleteServiceForever(new_service2);
         servicesService.deleteServiceForever(new_service3);

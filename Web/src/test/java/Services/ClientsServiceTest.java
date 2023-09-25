@@ -4,6 +4,8 @@ import Models.Clients;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class ClientsServiceTest {
 
     @Test
@@ -68,5 +70,20 @@ public class ClientsServiceTest {
         Clients check_client = clientsService.readClientByName("Дмитрий Иванович Крылов");
         Assert.assertEquals("Дмитрий Иванович Крылов", check_client.getName());
         clientsService.deleteClientForever(check_client);
+    }
+
+    @Test
+    public void readAllClients() {
+        ClientsService clientsService = new ClientsService();
+        Clients new_client1 = new Clients("Дмитрий Иванович Крылов", "kryl@fmaiil.com", "+72344114444444", "г. Москва, Ленинский пр-кт, д.7");
+        Clients new_client2 = new Clients("Дмитрий Крылов", "kryl@fmaiil.com", "+72344114444444", "г. Москва, Ленинский пр-кт, д.7");
+        clientsService.createClient(new_client1);
+        clientsService.createClient(new_client2);
+
+        List<Clients> check_client = clientsService.readAllClients();
+        Assert.assertTrue(check_client.contains(new_client1));
+        Assert.assertTrue(check_client.contains(new_client2));
+        clientsService.deleteClientForever(new_client1);
+        clientsService.deleteClientForever(new_client2);
     }
 }

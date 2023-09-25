@@ -3,6 +3,7 @@ package Services;
 import Dao.ServicesDao;
 import Dao.Impl.ServicesDaoImpl;
 import Models.Services;
+import Models.Transactions;
 
 import java.util.List;
 
@@ -30,6 +31,18 @@ public class ServicesService {
 
     public List<Services> readServiceListByType(String type) {
         return servicesDao.readListByType(type);
+    }
+
+    public List<Services> readAllServices() {
+        return servicesDao.AllServices();
+    }
+
+    public List<Services> readAllServicesByName() {
+        return servicesDao.AllServicesByName();
+    }
+
+    public List<Services> readAllServicesByType() {
+        return servicesDao.AllServicesByType();
     }
 
 }

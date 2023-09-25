@@ -5,6 +5,7 @@ import Dao.ContractsDao;
 import Models.Accounts;
 import Models.Contracts;
 import Models.Services;
+import Models.Transactions;
 
 import java.util.List;
 
@@ -32,6 +33,14 @@ public class ContractsService {
 
     public List<Contracts> readContractsListByServ(Services id) {
         return contractsDao.readListByServ(id);
+    }
+
+    public List<Contracts> readAllContracts() {
+        return contractsDao.AllContracts();
+    }
+
+    public List<Contracts> readContractsListByAccList(List<Accounts> accs) {
+        return contractsDao.readListByAccList(accs);
     }
 
 }

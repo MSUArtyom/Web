@@ -71,4 +71,10 @@ public class TransactionsDaoImpl implements TransactionsDao {
                 .setParameter("param", id);
         return query.getResultList();
     }
+    @Override
+    public List<Transactions> AllTransactions() {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Query<Transactions> query = session.createQuery("FROM Transactions", Transactions.class);
+        return query.getResultList();
+    }
 }

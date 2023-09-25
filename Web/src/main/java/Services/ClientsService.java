@@ -3,6 +3,9 @@ package Services;
 import Dao.ClientsDao;
 import Dao.Impl.ClientsDaoImpl;
 import Models.Clients;
+import Models.Transactions;
+
+import java.util.List;
 
 public class ClientsService {
     private ClientsDao clientsDao = new ClientsDaoImpl();
@@ -24,6 +27,10 @@ public class ClientsService {
 
     public Clients readClientByName(String name) {
         return clientsDao.readByName(name);
+    }
+
+    public List<Clients> readAllClients() {
+        return clientsDao.AllClients();
     }
 
 }

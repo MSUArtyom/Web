@@ -12,4 +12,5 @@ public interface TransactionsDao {
     Transactions readByID(int id);
     List<Transactions> readListByAcc(Accounts id);
     List<Transactions> readListByCon(Contracts id);
+    List<Transactions> AllTransactions();
 }

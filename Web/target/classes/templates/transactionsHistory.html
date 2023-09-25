@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>History of Account</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <style>
+    .sticky {
+      position: sticky;
+      top: 0em;
+      min-height: 0em;
+      z-index:10;
+    }
+  </style>
+</head>
+<body>
+<br>
+
+<header class="sticky">
+  <nav class="navbar sticky-top navbar-dark bg-dark">
+    <div class="btn-group" role="group" aria-label="top buttons">
+      <a id="index_root_page_button" href="/" class="btn btn-outline-warning" role="button">Root page</a>
+    </div>
+  </nav>
+</header>
+
+<br>
+
+<div class="row" >
+  <div class="table-responsive col-md-6">
+    <table class="table table-bordered " style="width: auto;">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col"> Contract ID </th>
+        <th scope="col"> Value </th>
+        <th scope="col"> Time </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:if="${#lists.isEmpty(transactions)}">
+        <td colspan="8"> No Transactions </td>
+      </tr>
+      <tr th:each="transaction : ${transactions}">
+
+        <form>
+          <input type="hidden" name="index_transaction_id" th:value="${transaction.getTransaction_id()}"/>
+        </form>
+
+        <td scope="row"> <span th:text="${transaction.getContract_id().getContract_id()}"> </span> </a></td>
+        <td><span th:text="${transaction.getValue()}"> </span></td>
+        <td><span th:text="${transaction.getTime()}"> </span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="table-responsive col-md-6">
+    <br>
+    <br>
+    <br>
+    <form th:action="'/client?client_id=' + ${client.getClient_id()}" method="post">
+      Go Back To Client
+      <button id="goback" type="submit" class="btn btn-primary">Go Back</button>
+    </form>
+  </div>
+</div>
+<br>
+<br>
+
+<div class="table-responsive col-md-6">
+  <br>
+  <br>
+  <br>
+  <form th:action="'/addContractPlus?id=' + ${prep_account_id}" method="post">
+    Add Contract With This Account
+    <button id="addcon" type="submit" class="btn btn-primary">Add</button>
+  </form>
+
+  <br>
+  <br>
+  <br>
+  <form th:action="'/addTransactionPlus?id=' + ${prep_account_id}" method="post">
+    Add Transaction With This Account
+    <button id="addtran" type="submit" class="btn btn-primary">Add</button>
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

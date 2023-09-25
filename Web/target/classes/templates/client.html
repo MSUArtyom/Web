@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Client Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .sticky {
+            position: sticky;
+            top: 0em;
+            min-height: 0em;
+            z-index:10;
+        }
+    </style>
+</head>
+<body>
+<br>
+
+<header class="sticky">
+    <nav class="navbar sticky-top navbar-dark bg-dark">
+        <div class="btn-group" role="group" aria-label="top buttons">
+            <a id="root_page_button" href="/" class="btn btn-outline-warning" role="button">Root page</a>
+        </div>
+    </nav>
+</header>
+
+<br>
+<br>
+<form action="/accountCreation" method="post">
+    <div class="col-md-4 mx-auto">
+        <label for="validationClienttId" class="form-label">Client ID</label>
+        <input type="text" class="form-control" name="cliid" id="validationClienttId" required placeholder="Client Id"  th:value="${client.getClient_id()}">
+    </div>
+
+    <div class="col-md-4 mx-auto">
+        <label for="validationBalance" class="form-label">Balance</label>
+        <input type="text" class="form-control" name="bal" id="validationBalance" required placeholder="Balance">
+    </div>
+
+    <div class="col-md-4 mx-auto">
+        <label for="validationMD" class="form-label">Max Debt</label>
+        <input type="text" class="form-control" id="validationMD" name="md" required placeholder="Max Debt">
+    </div>
+
+    <div class="col-md-4 mx-auto">
+        <label for="validationMT" class="form-label">Max Term</label>
+        <input type="text" class="form-control" id="validationMT" name="mt" required placeholder="Max Term in months">
+    </div>
+
+    <br>
+    <div class="col-md-4 mx-auto">
+        <button id="add_account_button" type="submit" class="btn btn-primary">Add Account</button>
+    </div>
+</form>
+
+<br>
+<br>
+<form th:action="'/saveclient?client_id=' + ${client.getClient_id()}" method="post" id="myform"></form>
+<table class="table table-bordered " style="width: auto; background-color: rgba(43,5,22,.1)">
+    <tr>
+        <td>Name</td>
+        <td><input class="form-control" id="inputTitle" style="width: auto" type="text" name="name" th:value="${client.getName()}" form="myform"></td>
+    </tr>
+
+    <tr>
+        <td>Emails</td>
+        <td><input class="form-control" id="inputAuthor" type="text" name="mail" th:value="${client.getEmails()}" form="myform"></td>
+    </tr>
+
+    <tr>
+        <td>Phone Numbers</td>
+        <td><input class="form-control" id="inputDesc" type="text" name="phn" th:value="${client.getPhone_numbers()}" form="myform"></td>
+    </tr>
+
+    <tr>
+        <td>Addresses</td>
+        <td><input class="form-control" id="inputPlan" type="text" name="add" th:value="${client.getAddresses()}" form="myform"></td>
+    </tr>
+
+</table>
+<br>
+<br>
+<div class="col-md-4">
+    <button id="save_edit_client_button" type="submit" class="btn btn-primary" form="myform">Save</button>
+</div>
+<br>
+<br>
+<div class="row" >
+    <div class="table-responsive col-md-6">
+        <table class="table table-bordered " style="width: auto;">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col"> Balance </th>
+                <th scope="col"> Max Debt </th>
+                <th scope="col"> Max Term </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(accounts)}">
+                <td colspan="8"> No Accounts </td>
+            </tr>
+            <tr th:each="account : ${accounts}">
+
+                <form>
+                    <input type="hidden" name="index_account_id" th:value="${account.getAccount_id()}"/>
+                </form>
+
+                <td scope="row"> <a th:href="'/transactionsHistory?account_id=' + ${account.getAccount_id()}"> <span th:text="${account.getBalance()}"> </span> </a></td>
+                <td><span th:text="${account.getMax_debt()}"> </span></td>
+                <td><span th:text="${account.getMax_term()}"> </span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="table-responsive col-md-6">
+    <br>
+    <br>
+    <br>
+    <form action="/addContract" method="get">
+        Make New Contract
+        <button id="addcon" type="submit" class="btn btn-primary">Make</button>
+    </form>
+    <br>
+    <br>
+    <form action="/addTransaction" method="get">
+        Make New Transaction
+        <button id="addtr" type="submit" class="btn btn-primary">Make</button>
+    </form>
+    <br>
+    <br>
+    <form th:action="'/contractsHistory?client_id=' + ${client.getClient_id()}" method="post">
+        Contract History
+        <button id="contractHistory" type="submit" class="btn btn-primary">Go</button>
+    </form>
+</div>
+
+<br><br>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

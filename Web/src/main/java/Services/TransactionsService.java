@@ -33,4 +33,8 @@ public class TransactionsService {
     public List<Transactions> readTransactionsListByCon(Contracts id) {
         return transactionsDao.readListByCon(id);
     }
+
+    public List<Transactions> readAllTransactions() {
+        return transactionsDao.AllTransactions();
+    }
 }

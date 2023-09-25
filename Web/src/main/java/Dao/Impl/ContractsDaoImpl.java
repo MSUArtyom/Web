@@ -4,6 +4,7 @@ import Dao.ContractsDao;
 import Models.Accounts;
 import Models.Contracts;
 import Models.Services;
+import Models.Transactions;
 import Utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -69,6 +70,19 @@ public class ContractsDaoImpl implements ContractsDao {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Query<Contracts> query = session.createQuery("FROM Contracts WHERE service_id = :param", Contracts.class)
                 .setParameter("param", id);
+        return query.getResultList();
+    }
+    @Override
+    public List<Contracts> AllContracts() {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Query<Contracts> query = session.createQuery("FROM Contracts", Contracts.class);
+        return query.getResultList();
+    }
+    @Override
+    public List<Contracts> readListByAccList(List<Accounts> accs) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Query<Contracts> query = session.createQuery("FROM Contracts WHERE account_id IN :param", Contracts.class)
+                .setParameter("param", accs);
         return query.getResultList();
     }
 }

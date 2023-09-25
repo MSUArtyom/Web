@@ -1,6 +1,9 @@
 package Dao;
 
 import Models.Clients;
+import Models.Transactions;
+
+import java.util.List;
 
 public interface ClientsDao {
     void create(Clients client);
@@ -8,4 +11,5 @@ public interface ClientsDao {
     void delete(Clients client);
     Clients readByID(int id);
     Clients readByName(String name);
+    List<Clients> AllClients();
 }

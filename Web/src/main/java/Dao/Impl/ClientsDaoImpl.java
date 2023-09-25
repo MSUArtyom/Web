@@ -2,10 +2,13 @@ package Dao.Impl;
 
 import Dao.ClientsDao;
 import Models.Clients;
+import Models.Transactions;
 import Utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class ClientsDaoImpl implements ClientsDao {
     public void create(Clients client) {
@@ -58,5 +61,11 @@ public class ClientsDaoImpl implements ClientsDao {
         Query<Clients> query = session.createQuery("FROM Clients WHERE name = :param", Clients.class)
                 .setParameter("param", name);
         return query.getResultList().get(0);
+    }
+    @Override
+    public List<Clients> AllClients() {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Query<Clients> query = session.createQuery("FROM Clients ORDER BY name", Clients.class);
+        return query.getResultList();
     }
 }

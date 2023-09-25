@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "transactions", schema="webbbb")
+@Table(name = "transactions", schema="webapp")
 public class Transactions {
 
     public Transactions() {}

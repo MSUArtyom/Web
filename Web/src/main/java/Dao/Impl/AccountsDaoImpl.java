@@ -3,6 +3,7 @@ package Dao.Impl;
 import Dao.AccountsDao;
 import Models.Accounts;
 import Models.Clients;
+import Models.Transactions;
 import Utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

@@ -2,6 +2,7 @@ package Dao.Impl;
 
 import Dao.ServicesDao;
 import Models.Services;
+import Models.Transactions;
 import Utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -67,6 +68,27 @@ public class ServicesDaoImpl implements ServicesDao {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Query<Services> query = session.createQuery("FROM Services WHERE type = :param", Services.class)
                 .setParameter("param", type);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Services> AllServices() {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Query<Services> query = session.createQuery("FROM Services", Services.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Services> AllServicesByType() {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Query<Services> query = session.createQuery("FROM Services ORDER BY type", Services.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Services> AllServicesByName() {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Query<Services> query = session.createQuery("FROM Services ORDER BY name", Services.class);
         return query.getResultList();
     }
 }
